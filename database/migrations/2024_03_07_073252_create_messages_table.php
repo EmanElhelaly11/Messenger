@@ -18,6 +18,8 @@ return new class extends Migration
             $table->text('body');
             $table->enum('type', ['text', 'attachment'])->default('text');
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 
