@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('participants', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('conversation_id')->constrained('conversations')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->enum('role', ['admin', 'member'])->default('member');
             $table->timestamp('joined_at');
+            $table->primary(['conversation_id', 'user_id']);
         });
     }
 

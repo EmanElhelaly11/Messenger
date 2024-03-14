@@ -42,4 +42,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function conversations()
+    {
+        return $this->belongsToMany(Conversation::class, 'participants')->wherePivot('role', 'joined_at');
+    }
+
+    public function sentMessages()
+    {
+        return $this->hasMany(Message::class, 'user_id', 'id');
+    }
+
+    public function recievedMessages()
+    {
+        return $this->belongsToMany(Message::class, 'recipients')->withPivot(['read_at', 'deleted_at']);
+    }
 }
